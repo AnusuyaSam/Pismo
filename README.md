@@ -33,6 +33,8 @@
 #### │               └── data.parquet
 
 
+### Best Practices 
+
 #### When implementing scripts for data generation and processing, following best practices can significantly improve maintainability, readability, and overall quality of your code. Here are some best practices to consider:
 
 #### 1. Code Organization and Structure
