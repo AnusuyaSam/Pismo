@@ -1,10 +1,10 @@
 # Pismo
 
 ## File Structure
-### organized_events/
-### ├── event_category=account_status-change/
-### │   ├── year=2023/
-### │   │   ├── month=01/
+#### organized_events/
+#### ├── event_category=account_status-change/
+#### │   ├── year=2023/
+#### │   │   ├── month=01/
 ### │   │   │   ├── day=01/
 ### │   │   │   │   └── data.parquet
 ### │   │   │   ├── day=02/
