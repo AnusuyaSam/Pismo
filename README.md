@@ -1,6 +1,6 @@
 # Pismo
 
-##File Structure
+## File Structure
 ##organized_events/
 ##├── event_category=account_status-change/
 ##│   ├── year=2023/
