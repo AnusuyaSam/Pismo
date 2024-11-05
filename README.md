@@ -33,7 +33,7 @@
 #### │               └── data.parquet
 
 
-##When implementing scripts for data generation and processing, following best practices can significantly improve maintainability, readability, and overall quality of your code. Here are some best practices to consider:
+## When implementing scripts for data generation and processing, following best practices can significantly improve maintainability, readability, and overall quality of your code. Here are some best practices to consider:
 
 1. Code Organization and Structure
 Modular Code: Break down your code into small, reusable functions or classes. Each function should have a single responsibility.
@@ -42,19 +42,18 @@ Directory Structure: Organize your files logically, separating source code, test
 
 Example Structure:
 
-arduino
-Copy code
-Pismo/
-├── src/
-│   ├── data_generator.py
-│   └── event_processor.py
-├── tests/
-│   ├── test_data_generator.py
-│   └── test_event_processor.py
-├── config/
-│   └── config.json
-├── logs/
-└── README.md
+
+  Pismo/
+  ├── src/
+  │   ├── data_generator.py
+  │   └── event_processor.py
+  ├── tests/
+  │   ├── test_data_generator.py
+  │   └── test_event_processor.py
+  ├── config/
+  │   └── config.json
+  ├── logs/
+  └── README.md
 2. Use Configuration Files
 External Configuration: Store configurations (like file paths, number of records to generate, etc.) in a separate configuration file (e.g., JSON or YAML) rather than hard-coding them in your scripts. This makes it easier to change settings without modifying the code.
 3. Error Handling
