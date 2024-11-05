@@ -3,68 +3,59 @@ import json
 from datetime import datetime
 from faker import Faker
 import random
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialize Faker instance
 fake = Faker()
 
-# Define the output file path for the generated events
-output_file_path = r"C:\Users\Anusuya\Downloads\Pismo\generateddata\events.json"
-
-# Ensure the output directory exists
-output_dir = os.path.dirname(output_file_path)
-try:
+def create_output_directory(output_file_path):
+    """Ensure the output directory exists."""
+    output_dir = os.path.dirname(output_file_path)
     os.makedirs(output_dir, exist_ok=True)
-    print(f"Output directory created or already exists: {output_dir}")
-except Exception as e:
-    print(f"Failed to create output directory: {e}")
+    logging.info(f"Output directory created or already exists: {output_dir}")
 
-# Event generation settings
-num_records = 10  # Base number of unique synthetic events to generate
-event_types = ["account", "transaction"]
-all_events = []  # List to store all generated events, including duplicates and errors
+def generate_events(num_records=10):
+    """Generate synthetic events with random data."""
+    event_types = ["account", "transaction"]
+    events = []
 
-# Generate events with intentional errors
-for _ in range(num_records):
-    domain = random.choice(event_types)
-    timestamp = fake.date_time_between(start_date='-5y', end_date='now')
-    event_type = "status-change" if domain == "account" else "payment"
+    for _ in range(num_records):
+        domain = random.choice(event_types)  
+        timestamp = fake.date_time_between(start_date='-5y', end_date='now').isoformat()
 
-    # Randomly introduce errors in event data
-    if random.choice([True, False]):
-        # 50% chance to introduce an invalid timestamp format
-        timestamp = "INVALID_TIMESTAMP" if random.choice([True, False]) else timestamp.isoformat()
-
-    # Create event with inconsistent data ID or random event type
-    if random.choice([True, False]):
-        # 50% chance to assign a data ID type inconsistent with the domain
-        data_id = fake.random_number(digits=6) if domain == "account" else fake.uuid4()
-    else:
-        data_id = fake.random_number(digits=6)
-
-    # Introduce a random unrelated event type to some events
-    event_type = "unexpected_type" if random.choice([True, False]) else event_type
-
-    # Create the event dictionary
-    event = {
-        "event_id": str(fake.uuid4() if random.choice([True, False]) else "DUPLICATE_ID"),
-        "timestamp": timestamp,
-        "domain": domain,
-        "event_type": event_type,
-        "data": {
-            "id": data_id,
-            "old_status": random.choice(["ACTIVE", "SUSPENDED"]),
-            "new_status": random.choice(["ACTIVE", "SUSPENDED"]),
-            "reason": fake.sentence()
+        event = {
+            "event_id": str(fake.uuid4()),
+            "timestamp": timestamp,
+            "domain": domain,
+            "event_type": "status-change" if domain == "account" else "payment",
+            "data": {
+                "id": fake.random_number(digits=6),
+                "old_status": random.choice(["ACTIVE", "SUSPENDED"]),
+                "new_status": random.choice(["ACTIVE", "SUSPENDED"]),
+                "reason": fake.sentence()
+            }
         }
-    }
+        events.append(event)
 
-    # Append the generated event to the list of events
-    all_events.append(event)
+    return events
 
-# Write all events to a single JSON file
-try:
-    with open(output_file_path, "w") as json_file:
-        json.dump(all_events, json_file, indent=4)
-    print(f"All events, including intentional errors, written to {output_file_path}")
-except Exception as e:
-    print(f"Failed to write events to file: {e}")
+def save_events_to_file(events, output_file_path):
+    """Save generated events to a JSON file."""
+    try:
+        with open(output_file_path, "w") as json_file:
+            json.dump(events, json_file, indent=4)
+        logging.info(f"All events written to {output_file_path}")
+    except Exception as e:
+        logging.error(f"Failed to write events to file: {e}")
+
+def main():
+    output_file_path = r"C:\Users\Anusuya\Downloads\Pismo\generateddata\events.json"
+    create_output_directory(output_file_path)
+    events = generate_events(num_records=10)
+    save_events_to_file(events, output_file_path)
+
+if __name__ == "__main__":
+    main()
