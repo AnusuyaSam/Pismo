@@ -12,7 +12,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 fake = Faker()
 
 def create_output_directory(output_file_path):
-    """Ensure the output directory exists."""
     output_dir = os.path.dirname(output_file_path)
     os.makedirs(output_dir, exist_ok=True)
     logging.info(f"Output directory created or already exists: {output_dir}")
