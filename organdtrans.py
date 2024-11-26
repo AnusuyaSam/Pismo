@@ -4,8 +4,6 @@ import pandas as pd
 from datetime import datetime
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 def load_events_from_file(input_file_path):
     try:
         with open(input_file_path, "r") as f:
