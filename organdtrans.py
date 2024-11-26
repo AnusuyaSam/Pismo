@@ -8,7 +8,6 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def load_events_from_file(input_file_path):
-    """Load events from a JSON file."""
     try:
         with open(input_file_path, "r") as f:
             events = json.load(f)
