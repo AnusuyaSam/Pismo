@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 from faker import Faker
-import random
+
  
 
 # Set up logging
